@@ -27,7 +27,7 @@ const destPath = 'docs';
 const path = {
     clean: destPath,
     src: {
-        html: `${srcPath}/pages/*.html`,
+        html: `${srcPath}/**/*.html`,
         css: `${srcPath}/styles/main.scss`,
         js: `${srcPath}/scripts/main.js`,
         sprite: `${srcPath}/images/sprite/**/*.svg`,
@@ -50,12 +50,9 @@ const path = {
         favicons: `${destPath}/assets/images/favicons`,
         font: `${destPath}/assets/fonts`,
     },
-    styleLibs: [
-        /*'node_modules/slick-carousel/slick/slick.css'*/
+    styleLibs: [           
     ],
     scriptLibs: [
-        /*'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/slick-carousel/slick/slick.min.js'*/     
     ],
 };
 
@@ -88,7 +85,7 @@ function html() {
                 collapseWhitespace: true,
             })
         )
-        .pipe(replace('/src/images', 'assets/images'))
+        .pipe(replace('../src/images', 'assets/images'))
         .pipe(dest(path.build.html));
 }
 
@@ -116,7 +113,7 @@ function css() {
                     }),
                 ])
             )
-            .pipe(replace('/src/images', 'images'))
+            .pipe(replace('../src/images', 'images'))
             .pipe(dest(path.build.css));
     } else {
         return src([...path.styleLibs, path.src.css])
@@ -125,7 +122,7 @@ function css() {
             .pipe(sassGlob())
             .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
             .pipe(sourcemaps.write())
-            .pipe(replace('/src/images', 'images'))
+            .pipe(replace('../src/images', 'images'))
             .pipe(dest(path.build.css));
     }
 }
